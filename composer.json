@@ -1,0 +1,9 @@
+{
+    "require-dev": {
+        "phalcon/devtools": "~3.0.3"
+    },
+    "require": {
+        "robmorgan/phinx": "^0.10.6",
+        "symfony/polyfill-iconv": "^1.10"
+    }
+}

@@ -1,0 +1,36 @@
+run.config:
+  # install php and associated runtimes
+  engine: php
+
+  # php engine configuration (php version, extensions, etc)
+  engine.config:
+
+    # set the php version
+    runtime: php-7.1
+
+    # set your app's document root  
+    document_root: public
+
+    webserver: nginx
+
+    # public directory
+    document_root: public
+
+    # include the phalcon extension
+    extensions:
+      - phalcon
+      - curl
+      - pdo
+      - pdo_mysql
+
+  # for convenience - adds a bash alias for phalcon devtools
+  extra_steps:
+    - echo "alias phalcon=\'phalcon.php\'" >> /data/var/home/gonano/.bashrc
+
+web.main:
+  start:
+    php: start-php
+    nginx: start-nginx
+
+data.db:
+  image: nanobox/mysql:5.6

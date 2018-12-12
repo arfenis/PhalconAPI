@@ -3,6 +3,7 @@
 namespace App\Controllers;
 
 use Phalcon\Mvc\Controller;
+use App\Models\Users;
 
 /**
  * Operations with Users: CRUD
@@ -12,8 +13,35 @@ class UsersController extends Controller
     /**
      * Adding user
      */
-    public function addAction()
+    public function register()
     {
+        $user = new Users();
+        $request = $this->request->getPost();
+
+        $options = [
+            'cost' => 12,
+        ];
+
+        $password = $this->request->getPost('password');
+        $name = $this->request->getPost('name');
+        $email = $this->request->getPost('email');
+        $created = $this->request->getPost('created');
+
+        $user->password = $this->security->hash($password);
+        $user->name = $name;
+        $user->email = $email;
+        $user->created = $created;
+
+        // Store and check for errors
+        $success = $user->save();
+
+        if ($success) {
+            $message = "Thanks for registering!";
+        } else {
+            $message = "Sorry, the following problems were generated:" . implode($user->getMessages());
+        }
+
+        return [$message];
     }
 
     /**

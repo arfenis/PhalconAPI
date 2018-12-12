@@ -3,8 +3,17 @@
 namespace App\Models;
 
 use Phalcon\Mvc\Model;
+use Phalcon\Mvc\Model\Behavior\Timestampable;
 
 class Users extends Model
 {
+    public $id;
 
+    public $name;
+
+    public $created;
+
+    function beforeSave(){
+        $this->created = date();
+    }
 }

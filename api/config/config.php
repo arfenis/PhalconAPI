@@ -10,8 +10,9 @@ return new \Phalcon\Config([
         'charset'     => 'utf8',
     ],
     'application' => [
-        'controllersDir' => "app/controllers/",
-        'modelsDir' => "app/models/",
+        'controllersDir' => "/app/api/controllers/",
+        'modelsDir' => "/app/api/models/",
         'baseUri' => "/",
     ],
+
 ]);

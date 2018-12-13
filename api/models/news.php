@@ -7,4 +7,5 @@ use Phalcon\Mvc\Model;
 class News extends Model
 {
 
+
 }

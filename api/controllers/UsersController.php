@@ -35,18 +35,9 @@ class UsersController extends AbstractController
             $message = "Sorry, the following problems were generated:" . implode($user->getMessages());
         }
 
-        return [$message];
-    }
-
-    /**
-     * Returns user list
-     *
-     * @return array
-     */
-    public function list() :array
-    {
-        echo $this->auth->data('sub'); die();
-       
+        return [
+            $message
+        ];
     }
 
      /**
@@ -81,22 +72,34 @@ class UsersController extends AbstractController
                     'email' => $email
                 ]
             ]
-                );
-       $response = $this->validatePassword($this->request->getpost('password'),$user->password);
+        );
 
-       if($response == true) {
+        if($user) 
+        {
+            $response = $this->validatePassword($this->request->getpost('password'),$user->password);
 
-            $payload = [
-                'sub'   => $user->id,
-                'email' => $user->email,
-                'iat' => time(),
-            ];
+            if($response == true) {
+     
+                 $payload = [
+                     'sub'   => $user->id,
+                     'email' => $user->email,
+                     'iat' => time(),
+                 ];
+     
+                $token = $this->getJwt($payload);
+                return $token;
+            }
+            
+            $message = 'Password incorrecta';
+        } else {
+            $message = 'Email incorrecto';
+        }
 
-           $token = $this->getJwt($payload);
-       }
+        return [$message];
 
-       return $token;
     }
+
+    //Valida si la password introductida por el usuario $loginPassword es igual a la fetcheada de la base de datos $dataPassword
 
     public function validatePassword($loginPassword, $dataPassword)
     {
@@ -111,6 +114,8 @@ class UsersController extends AbstractController
             return 'no valida';
         }
     }
+
+    // Si ambas password son iguales genera el token mediante los campos enviados en $payload
 
     public function getJwt($payload) 
     {

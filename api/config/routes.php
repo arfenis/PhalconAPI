@@ -18,3 +18,4 @@ $newsCollection->delete('/news/{id:[0-9]+}', 'delete'); // Delete a new by ID
 
 
 $app->mount($usersCollection);
+$app->mount($newsCollection);

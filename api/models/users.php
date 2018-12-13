@@ -14,6 +14,6 @@ class Users extends Model
     public $created;
 
     function beforeSave(){
-        $this->created = date();
+        //$this->created = date();
     }
 }

@@ -1,4 +1,9 @@
 <?php
+/**
+ * Loading local .env variables
+ */
+$dotenv = new Dotenv\Dotenv(BASE_PATH);
+$dotenv->load();
 
 $loader = new \Phalcon\Loader();
 $loader->registerNamespaces(
@@ -10,3 +15,4 @@ $loader->registerNamespaces(
 );
 
 $loader->register();
+

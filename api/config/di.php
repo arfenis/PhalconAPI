@@ -22,7 +22,7 @@ $di->setShared(
 $di->setShared('config', $config);
 
 /** Database */
-$di->set(
+$di->setShared(
   "db",
   function () use ($config) {
       return new Mysql(

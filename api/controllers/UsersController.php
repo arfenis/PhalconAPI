@@ -8,29 +8,25 @@ use App\Models\Users;
 /**
  * Operations with Users: CRUD
  */
-class UsersController extends Controller
+class UsersController extends AbstractController
 {
     /**
      * Adding user
+     * @return array 
      */
     public function register()
     {
+        
         $user = new Users();
-        $request = $this->request->getPost();
 
         $options = [
             'cost' => 12,
         ];
 
-        $password = $this->request->getPost('password');
-        $name = $this->request->getPost('name');
-        $email = $this->request->getPost('email');
-        $created = $this->request->getPost('created');
-
-        $user->password = $this->security->hash($password);
-        $user->name = $name;
-        $user->email = $email;
-        $user->created = $created;
+        $user->password = $this->security->hash($this->request->getPost('password'));
+        $user->name = $this->request->getPost('name');
+        $user->email = $this->request->getPost('email');
+        $user->created = $this->request->getPost('created');
 
         // Store and check for errors
         $success = $user->save();
@@ -49,7 +45,7 @@ class UsersController extends Controller
      *
      * @return array
      */
-    public function getUserListAction()
+    public function list()
     {
        return ['2'];
        
@@ -60,7 +56,7 @@ class UsersController extends Controller
      *
      * @param string $userId
      */
-    public function updateUserAction($userId)
+    public function update(int $userId)
     {
        
     }
@@ -70,7 +66,7 @@ class UsersController extends Controller
      *
      * @param string $userId
      */
-    public function deleteUserAction($userId)
+    public function delete(int $userId)
     {
        
     }

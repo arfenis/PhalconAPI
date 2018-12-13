@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Controllers;
+use Phalcon\Mvc\Controller;
 
 /**
  * Class AbstractController
@@ -12,7 +13,7 @@ namespace App\Controllers;
  * @property \App\Services\UsersService         $usersService
  * @property \App\Models\Users                  $user
  */
-abstract class AbstractController extends \Phalcon\DI\Injectable
+abstract class AbstractController extends Controller
 {
     /**
      * Route not found. HTTP 404 Error

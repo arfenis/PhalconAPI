@@ -10,20 +10,18 @@ use App\Models\Users;
  */
 class UsersController extends AbstractController
 {
+
     /**
      * Adding user
      * @return array 
      */
-    public function register()
+    public function register() : array
     {
         
         $user = new Users();
 
-        $options = [
-            'cost' => 12,
-        ];
 
-        $user->password = $this->security->hash($this->request->getPost('password'));
+        $user->password = password_hash($this->request->getpost('password'),PASSWORD_BCRYPT);
         $user->name = $this->request->getPost('name');
         $user->email = $this->request->getPost('email');
         $user->created = $this->request->getPost('created');
@@ -45,9 +43,9 @@ class UsersController extends AbstractController
      *
      * @return array
      */
-    public function list()
+    public function list() :array
     {
-       return ['2'];
+        echo $this->auth->data('sub'); die();
        
     }
 
@@ -71,7 +69,52 @@ class UsersController extends AbstractController
        
     }
 
-    public function indexMethod(){
-        echo '1'; die();
+    public function login() :array
+    {
+
+        $email = $this->request->getpost("email");
+
+        $user = Users::findFirst(
+            [
+                'conditions' => 'email = :email:',
+                'bind' => [
+                    'email' => $email
+                ]
+            ]
+                );
+       $response = $this->validatePassword($this->request->getpost('password'),$user->password);
+
+       if($response == true) {
+
+            $payload = [
+                'sub'   => $user->id,
+                'email' => $user->email,
+                'iat' => time(),
+            ];
+
+           $token = $this->getJwt($payload);
+       }
+
+       return $token;
+    }
+
+    public function validatePassword($loginPassword, $dataPassword)
+    {
+        if($dataPassword){
+            if (password_verify($loginPassword, $dataPassword)) {
+                return true;
+            } else {
+                return false;
+            }        
+        } else {
+            $this->security->hash(rand());
+            return 'no valida';
+        }
+    }
+
+    public function getJwt($payload) 
+    {
+        return ['token' => $this->auth->make($payload),
+                'auth_type' => 'Bearer'];
     }
 }

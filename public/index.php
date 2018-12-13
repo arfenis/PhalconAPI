@@ -8,9 +8,7 @@ use Phalcon\Config\Adapter\Ini as ConfigIni;
 define('BASE_PATH','/app/');
 define('APP_PATH',BASE_PATH.'api/');
 
-/**
- * Environment variables
- */
+
 try {
     // Autoloading classes
   require APP_PATH.'config/loader.php';

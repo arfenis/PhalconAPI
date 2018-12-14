@@ -2,3 +2,4 @@
 .phalcon
 phinx.yml
 vendor/
+nginx.conf

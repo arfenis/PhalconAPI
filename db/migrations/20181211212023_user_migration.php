@@ -35,7 +35,7 @@ class UserMigration extends AbstractMigration
         $users = $this->table('users');
         $users->addColumn('name', 'string', ['limit' => 20])
               ->addColumn('password', 'string', ['limit' => 255])
-              ->addColumn('email', 'string', ['limit' => 100, 'unique' => true])
+              ->addColumn('email', 'string', ['limit' => 100], ['unique' => true])
               ->addColumn('created', 'datetime')
               ->addColumn('updated', 'datetime', ['null' => true])
               ->addIndex(['name', 'email'], ['unique' => true])

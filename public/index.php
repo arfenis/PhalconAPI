@@ -49,7 +49,7 @@ try {
 
           // Sending response to the client
           $app->response->send();
-        }
+    }
 
   );
 

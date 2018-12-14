@@ -22,6 +22,11 @@ run.config:
       - curl
       - pdo
       - pdo_mysql
+      - mbstring
+      - dom
+      - xml
+      - xmlwriter
+      - tokenizer
 
   # for convenience - adds a bash alias for phalcon devtools
   extra_steps:

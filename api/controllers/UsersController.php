@@ -20,7 +20,6 @@ class UsersController extends AbstractController
         
         $user = new Users();
 
-
         $user->password = password_hash($this->request->getpost('password'),PASSWORD_BCRYPT);
         $user->name = $this->request->getPost('name');
         $user->email = $this->request->getPost('email');
@@ -45,7 +44,7 @@ class UsersController extends AbstractController
      *
      * @param string $userId
      */
-    public function update(int $userId)
+    public function update(string $userId)
     {
        
     }
@@ -55,10 +54,15 @@ class UsersController extends AbstractController
      *
      * @param string $userId
      */
-    public function delete(int $userId)
+    public function delete(string $userId)
     {
        
     }
+
+    /**
+     * Login a user
+     * @return array 
+     */
 
     public function login() :array
     {
@@ -99,25 +103,32 @@ class UsersController extends AbstractController
 
     }
 
-    //Valida si la password introductida por el usuario $loginPassword es igual a la fetcheada de la base de datos $dataPassword
+    /**
+     * Validation of the password with the DB password
+     * @return bool
+     * @param string $loginPassword
+     * @param string $dataPassword
+     */
 
-    public function validatePassword($loginPassword, $dataPassword)
+    public function validatePassword(string $loginPassword, string $dataPassword) : bool
     {
         if($dataPassword){
             if (password_verify($loginPassword, $dataPassword)) {
                 return true;
-            } else {
-                return false;
-            }        
+            }      
         } else {
             $this->security->hash(rand());
-            return 'no valida';
+            return false;
         }
     }
 
-    // Si ambas password son iguales genera el token mediante los campos enviados en $payload
+    /**
+     * Return the Token and the authorization type
+     * @return array
+     * @param array $payload
+     */
 
-    public function getJwt($payload) 
+    public function getJwt(array $payload) : array
     {
         return ['token' => $this->auth->make($payload),
                 'auth_type' => 'Bearer'];

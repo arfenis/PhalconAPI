@@ -40,7 +40,7 @@ class NewsMigration extends AbstractMigration
               ->addColumn('views', 'integer')
               ->addColumn('created', 'datetime')
               ->addColumn('updated', 'datetime', ['null' => true])
-              ->addColumn('deleted', 'datetime', ['null' => true])
+              ->addColumn('deleted', 'integer')
               ->create();
     }
 }

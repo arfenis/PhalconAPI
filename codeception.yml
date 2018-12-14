@@ -6,7 +6,7 @@ suites:
     modules:
       enabled:
         - REST:
-            url: http://phalcon.local/v1
+            url: http://172.21.0.3:8080/v1
             depends: PhpBrowser
             part: Json
 

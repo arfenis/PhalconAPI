@@ -1,6 +1,7 @@
 <?php 
 
-class CreateUserCest
+
+class LoginUserCest
 {
     public function _before(ApiTester $I)
     {
@@ -11,12 +12,14 @@ class CreateUserCest
     {
     }
 
-    public function createUserViaApi(ApiTester $I)
+    public function loginUserViaApi(ApiTester $I)
     {
         $I->haveHttpHeader('Content-Type', 'application/x-www-form-urlencoded');
-        $I->sendPOST('/register', ['name' => 'cocedepction', 'email' => 'davert@codeception.com', 'password' => '1234']);
+        $I->sendPOST('/login', ['name' => 'cocedepction', 'email' => 'davert@codeception.com', 'password' => '1234']);
         $I->seeResponseCodeIs(\Codeception\Util\HttpCode::OK); // 200
         $I->seeResponseIsJson();
-        //$I->seeResponseContains('{"result":"ok"}');
+        $response = $I->grabResponse();
+
+        $data = json_decode($response, true);
     }
 }

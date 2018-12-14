@@ -13,6 +13,11 @@ class Users extends Model
 
     public $created;
 
+    public function beforeValidationOnCreate()
+    {
+        $this->created =  date("Y/m/d");
+    }
+
     public function initialize()
     {
             $this->hasMany(

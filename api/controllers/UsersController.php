@@ -23,7 +23,6 @@ class UsersController extends AbstractController
         $user->password = password_hash($this->request->getpost('password'),PASSWORD_BCRYPT);
         $user->name = $this->request->getPost('name');
         $user->email = $this->request->getPost('email');
-        $user->created = $this->request->getPost('created');
 
         // Store and check for errors
         $success = $user->save();
